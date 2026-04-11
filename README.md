@@ -10,10 +10,10 @@ This project demonstrates full-stack development, REST API integration, and clou
 # Live Demo
 
 Frontend (User Interface):
-https://frabjous-torrone-7c13f0.netlify.app
+https://zippy-conkies-22815a.netlify.app/
 
 Backend API:
-https://task-manager-7yym.onrender.com/tasks/
+https://task-manager-7yvm.onrender.com/
 
 ---
 
