@@ -215,4 +215,3 @@ VITE_API_URL=https://task-manager-7yvm.onrender.com
 
 ---
 
-*Built as part of a Full Stack Developer technical assignment.*
