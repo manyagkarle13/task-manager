@@ -1,246 +1,218 @@
 # Task Manager — Full Stack Web Application
 
-A full-stack Task Manager application built using **Django REST Framework** for the backend and **React (Vite)** for the frontend.
-The application allows users to create, update, and delete tasks with support for daily and date-specific scheduling.
-
-This project demonstrates full-stack development, REST API integration, and cloud deployment.
+A full-stack Task Manager built with **Django REST Framework** (backend) and **React + Vite** (frontend). Supports daily and date-specific task scheduling with a clean calendar-based UI.
 
 ---
 
-# Live Demo
+## 🔗 Live Demo
 
-Frontend (User Interface):
-https://zippy-conkies-22815a.netlify.app/
-
-Backend API:
-https://task-manager-7yvm.onrender.com/
-
----
-
-# Tech Stack
-
-Frontend
-
-* React 18
-* Vite
-* React Router
-* Axios
-* CSS
-
-Backend
-
-* Django 4.x
-* Django REST Framework
-* SQLite
-
-Deployment
-
-* Backend hosted on Render
-* Frontend hosted on Netlify
+| | Link |
+|---|---|
+| 🌐 **Frontend** | [https://zippy-conkies-22815a.netlify.app](https://zippy-conkies-22815a.netlify.app) |
+| ⚙️ **Backend API** | [https://task-manager-7yvm.onrender.com](https://task-manager-7yvm.onrender.com) |
 
 ---
 
-# Features
+## 🛠️ Tech Stack
 
-* Create tasks
-* Update task status
-* Delete tasks
-* Support for daily tasks
-* Support for particular-day tasks
-* Calendar-based task management
-* REST API integration
-* Full-stack deployment
-* Responsive user interface
+### Frontend
+- React 18
+- Vite
+- React Router DOM
+- Axios
+- Plain CSS (inline styles)
+
+### Backend
+- Python / Django 4.x
+- Django REST Framework
+- SQLite
+- Whitenoise (static files)
+- Gunicorn
+
+### Deployment
+- **Backend** → Render (free tier)
+- **Frontend** → Netlify (free tier)
 
 ---
 
-# Project Structure
+## ✨ Features
 
-task-manager
-│
-├── backend
+- ✅ Create, update, and delete tasks
+- 📅 Calendar view — click any date to see tasks for that day
+- 🔁 Daily tasks — appear on every day
+- 📌 Particular-day tasks — scoped to a specific date
+- 🔘 Mark tasks as complete / incomplete
+- 🔍 Filter tasks — All / Completed / Incomplete
+- 📊 Task stats — total, done, for selected day
+- 🌐 Full REST API integration
+- 📱 Responsive UI
+
+---
+
+## 📁 Project Structure
+
+```
+task-manager/
+├── backend/                  # Django backend
+│   ├── backend/              # Project settings, urls, wsgi
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   └── wsgi.py
+│   ├── tasks/                # Tasks app
+│   │   ├── models.py
+│   │   ├── serializers.py
+│   │   ├── views.py
+│   │   └── urls.py
 │   ├── manage.py
 │   ├── requirements.txt
-│   └── tasks app
+│   ├── Procfile
+│   └── build.sh
 │
-├── frontend
-│   ├── src
-│   ├── public
+├── frontend/                 # React + Vite frontend
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── LandingPage.jsx
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── Calendar.jsx
+│   │   │   └── TaskPanel.jsx
+│   │   ├── api.js
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   ├── public/
+│   │   └── _redirects        # Netlify routing fix
+│   ├── index.html
+│   ├── vite.config.js
 │   └── package.json
 │
 └── README.md
+```
 
 ---
 
-# Local Setup
+## ⚙️ Local Setup
 
-## Backend Setup
+### Prerequisites
+- Python 3.10+
+- Node.js 18+
+- Git
 
+---
+
+### Backend Setup
+
+```bash
 cd backend
-
-Install dependencies:
-
 pip install -r requirements.txt
-
-Run database migrations:
-
 python manage.py migrate
-
-Start the backend server:
-
 python manage.py runserver
+```
 
-Backend runs at:
-
-http://127.0.0.1:8000
+Backend runs at → `http://127.0.0.1:8000`
 
 ---
 
-## Frontend Setup
+### Frontend Setup
 
+```bash
 cd frontend
-
-Install dependencies:
-
 npm install
-
-Start development server:
-
 npm run dev
+```
 
-Frontend runs at:
-
-http://localhost:5173
+Frontend runs at → `http://localhost:3000`
 
 ---
 
-# Environment Variables
+### Environment Variables
 
-## Frontend (.env file inside frontend folder)
+Create a `.env` file inside the `frontend/` folder:
 
-Create a file named:
-
-.env
-
-Add:
-
+```env
 VITE_API_URL=http://127.0.0.1:8000
+```
 
-For production:
+For production, set:
 
-VITE_API_URL=https://task-manager-7yym.onrender.com
-
----
-
-# API Endpoints
-
-GET /tasks/
-Returns list of all tasks
-
-POST /tasks/
-Creates a new task
-
-PATCH /tasks/:id/
-Updates an existing task
-
-DELETE /tasks/:id/
-Deletes a task
+```env
+VITE_API_URL=https://task-manager-7yvm.onrender.com
+```
 
 ---
 
-# Task Model
+## 🌐 API Endpoints
 
-Field | Type | Description
-id | Integer | Auto-generated primary key
-title | String | Task title (required)
-completed | Boolean | Task completion status
-is_daily | Boolean | Indicates daily recurring task
-due_date | Date | Optional date for task
-created_at | Timestamp | Task creation time
-
----
-
-# Deployment
-
-## Backend Deployment (Render)
-
-Build command:
-
-pip install -r requirements.txt && python manage.py collectstatic --no-input && python manage.py migrate
-
-Start command:
-
-gunicorn backend.wsgi:application
-
-Environment variables:
-
-SECRET_KEY=your-secret-key
-DEBUG=False
-
-Live backend URL:
-
-https://task-manager-7yym.onrender.com
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/tasks/` | Return all tasks |
+| `POST` | `/tasks/` | Create a new task |
+| `PATCH` | `/tasks/:id/` | Update a task |
+| `DELETE` | `/tasks/:id/` | Delete a task |
 
 ---
 
-## Frontend Deployment (Netlify)
+## 🗄️ Task Data Model
 
-Build command:
-
-npm install && npm run build
-
-Publish directory:
-
-dist
-
-Environment variable:
-
-VITE_API_URL=https://task-manager-7yym.onrender.com
-
-Live frontend URL:
-
-https://frabjous-torrone-7c13f0.netlify.app
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | Integer | Auto-generated primary key |
+| `title` | String | Task title (required) |
+| `completed` | Boolean | Completion status |
+| `is_daily` | Boolean | Recurring daily task |
+| `due_date` | Date | Optional date for task |
+| `created_at` | Timestamp | Auto-set on creation |
 
 ---
 
-# Assumptions and Trade-offs
+## 🚀 Deployment
 
-SQLite database is used for simplicity and quick setup.
-On free hosting plans, data may reset if the service restarts.
-For production-scale systems, PostgreSQL is recommended.
+### Backend — Render
 
-CORS is currently open:
-
-CORS_ALLOW_ALL_ORIGINS=True
-
-In production, this should be restricted to specific domains.
-
-Authentication is not implemented because the application is designed as a single-user task manager according to assignment scope.
-
-Daily tasks appear on all days.
-Particular-day tasks are shown only on their assigned date.
+| Setting | Value |
+|---------|-------|
+| Root Directory | `backend` |
+| Build Command | `bash build.sh` |
+| Start Command | `gunicorn backend.wsgi:application --bind 0.0.0.0:$PORT` |
+| Environment: `SECRET_KEY` | your-secret-key |
+| Environment: `DEBUG` | `False` |
 
 ---
 
-# Future Improvements
+### Frontend — Netlify
 
-User authentication (login and signup)
-Task categories and priorities
-Reminder notifications
-Dark mode support
-PostgreSQL database integration
-Docker containerization
+| Setting | Value |
+|---------|-------|
+| Base Directory | `frontend` |
+| Build Command | `npm run build` |
+| Publish Directory | `frontend/dist` |
+| Environment: `VITE_API_URL` | `https://task-manager-7yvm.onrender.com` |
+
+---
+
+## 📝 Assumptions & Trade-offs
+
+- **SQLite** is used for simplicity. Data may reset on Render free tier restarts. PostgreSQL is recommended for production.
+- **CORS** is currently open (`CORS_ALLOW_ALL_ORIGINS = True`). Should be restricted to specific domains in production.
+- **No authentication** — designed as a single-user task manager per assignment scope.
+- **Daily tasks** appear on all calendar days. **Particular-day tasks** show only on their assigned date.
 
 ---
 
-# Author
+## 🔮 Future Improvements
 
-Manya G Karle
-
-Computer Science Engineering Student
-Full Stack Developer
-
-GitHub Repository:
-https://github.com/manyagkarle13/task-manager
+- User authentication (login / signup)
+- Task categories and priorities
+- Push notification reminders
+- Dark mode
+- PostgreSQL database
+- Docker containerization
 
 ---
+
+## 👩‍💻 Author
+
+**Manya G Karle**  
+
+---
+
+*Built as part of a Full Stack Developer technical assignment.*
